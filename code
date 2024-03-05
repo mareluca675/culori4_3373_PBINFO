@@ -1,0 +1,65 @@
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    ifstream cin("culori.in");
+    ofstream cout("culori.out");
+    
+    int cerinta, cl, n, m;
+    int c[10002];
+    
+    cin >> cerinta;
+    
+    if(cerinta == 1){
+        cin >> cl >> n >> m;
+        
+        for(int i = 1; i <= n; i ++){
+            cin >> c[i];
+        }
+        
+        for(int i = 1; i <= m; i ++){
+            int a, b, c;
+            cin >> a >> b >> c;
+        }
+        
+        int l, lmax = 0;
+        for(int i = 1; i < n; i ++){
+            l = 1;
+            while(c[i] == c[i + 1]){
+                l ++;
+                i ++;
+            }
+            
+            if(l > lmax){
+                lmax = l;
+            }
+        }
+        
+        cout << lmax;
+    }
+    else{
+        int smen[10002]{};
+        cin >> cl >> n >> m;
+        
+        for(int i = 1; i <= n; i ++){
+            cin >> c[i];
+        }
+        
+        for(int i = 1; i <= m; i ++){
+            int a, b, c;
+            cin >> a >> b >> c;
+            
+            smen[a] += c;
+            smen[b + 1] -= c;
+        }
+        
+        for(int i = 1; i <= n; i ++){
+            smen[i] += smen[i - 1];
+            cout << c[i] + smen[i] << ' ';
+        }
+    }
+
+    return 0;
+}
